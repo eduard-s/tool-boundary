@@ -1,10 +1,10 @@
 # ToolBoundary for Node.js
 
-ToolBoundary examines input, result, and error behavior across AI tool boundaries. The first adapters support MCP TypeScript SDK v1 and AI SDK WorkflowAgent v2.
+ToolBoundary examines tool input, results, and errors. The first adapters support MCP TypeScript SDK v1 and AI SDK WorkflowAgent v2.
 
 ## Install
 
-After publication, install `@eduard-s/tool-boundary` from npm. Install the SDK for the adapter that you use. The npm registry did not return this package on November 7, 2026. The npm account must control the `@eduard-s` scope.
+After publication, install `@eduard-s/tool-boundary` from npm. Install the SDK for the adapter that you use. The npm registry returned no package with this name on November 7, 2026. Your npm account must control the `@eduard-s` scope.
 
 ## Examples
 
@@ -19,16 +19,16 @@ The [MCP example](examples/mcp-output.mjs) compares parsed structured output wit
 
 Import `probeMcpTool` from `@eduard-s/tool-boundary/mcp-v1`. Import `probeWorkflowTool` from `@eduard-s/tool-boundary/workflow`.
 
-For WorkflowAgent, pass `makeTool` when your application has its own tool factory. The probe passes a stub executor into that factory.
+For WorkflowAgent, pass `makeTool` if your application has its own tool factory. The probe gives that factory a stub executor.
 
-The MCP adapter uses a local transport that serializes each protocol message to JSON. The WorkflowAgent adapter uses a fake model. It needs no API key.
+The MCP adapter uses a local transport that converts each protocol message to JSON. The WorkflowAgent adapter uses a fake model. It needs no API key.
 
 ## Development
 
 Run `npm install`, `npm test`, and `npm run build` in this directory.
 
-The development lockfile uses current SDK versions. A separate CI job installs historical versions for regression cases. SDK development dependencies produce npm audit findings. The package has no bundled runtime dependencies, and `npm audit --omit=dev` reports no findings on this lockfile.
+The development lockfile uses current SDK versions. A separate CI job installs historical versions for regression cases. SDK development dependencies cause npm audit findings. The package has no bundled runtime dependencies. On this lockfile, `npm audit --omit=dev` finds no issues.
 
-The probe registers a supplied test handler. It captures that handler's input and observes the client response. It never registers a production tool body.
+The probe registers a supplied test handler. It captures the handler input and examines the client response. It does not register a production tool body.
 
 The [project README](https://github.com/eduard-s/tool-boundary#readme) describes the report format and defect cases.
