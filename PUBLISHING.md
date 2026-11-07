@@ -14,7 +14,7 @@ The Python and npm packages have separate versions and release tags. In this gui
 
 ## Local release tests
 
-From the repository root, run these commands:
+From the repository root, run the Python commands:
 
 ```sh
 cd packages/python
@@ -23,8 +23,12 @@ python3 -m venv .venv
 .venv/bin/ruff check .
 .venv/bin/pytest -q
 .venv/bin/python -m build
+```
 
-cd ../typescript
+From the repository root, run the Node.js commands:
+
+```sh
+cd packages/typescript
 npm ci
 npm run typecheck
 npm test
@@ -79,14 +83,14 @@ For later Python releases, change the version in `packages/python/pyproject.toml
 
 ## After publication
 
-Examine the registry pages. Install each package in a new project:
+Examine the registry pages. From the repository root, install the Python package in a new environment:
 
 ```sh
-python3 -m venv /tmp/tool-boundary-install
-/tmp/tool-boundary-install/bin/python -m pip install 'tool-boundary[mcp-v1]'
-/tmp/tool-boundary-install/bin/python -c 'import tool_boundary'
-
-npm install @eduard-s/tool-boundary
+python3 -m venv .venv-published
+.venv-published/bin/python -m pip install 'tool-boundary[mcp-v1]'
+.venv-published/bin/python -c 'import tool_boundary'
 ```
+
+In a new Node.js project, run `npm install @eduard-s/tool-boundary`.
 
 The npm package needs the SDK for the adapter that you import. Read [`packages/typescript/README.md`](packages/typescript/README.md).

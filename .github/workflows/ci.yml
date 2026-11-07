@@ -34,9 +34,9 @@ jobs:
       - name: Install wheel in a new environment
         working-directory: packages/python
         run: |
-          python -m venv /tmp/tool-boundary-wheel
-          /tmp/tool-boundary-wheel/bin/python -m pip install dist/*.whl
-          /tmp/tool-boundary-wheel/bin/python -c 'import tool_boundary'
+          python -m venv .venv-wheel
+          .venv-wheel/bin/python -m pip install dist/*.whl
+          .venv-wheel/bin/python -c 'import tool_boundary'
 
   node:
     runs-on: ubuntu-latest
@@ -69,10 +69,10 @@ jobs:
       - name: Install tarball in a new project
         working-directory: packages/typescript
         run: |
-          PACKAGE_FILE=$(npm pack --pack-destination "$RUNNER_TEMP")
-          mkdir -p "$RUNNER_TEMP/tool-boundary-smoke"
-          npm install --prefix "$RUNNER_TEMP/tool-boundary-smoke" "$RUNNER_TEMP/$PACKAGE_FILE"
-          cd "$RUNNER_TEMP/tool-boundary-smoke"
+          mkdir -p .venv-node-smoke/project
+          PACKAGE_FILE=$(npm pack --pack-destination .venv-node-smoke)
+          npm install --prefix .venv-node-smoke/project ".venv-node-smoke/$PACKAGE_FILE"
+          cd .venv-node-smoke/project
           node --input-type=module -e 'import { compareValues } from "@eduard-s/tool-boundary"; if (compareValues({x:1},{x:2})[0].path !== "/x") process.exit(1)'
 
   node-fixed-control:
