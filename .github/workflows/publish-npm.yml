@@ -1,0 +1,43 @@
+name: Publish npm
+
+on:
+  push:
+    tags: ['node-v*']
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          registry-url: 'https://registry.npmjs.org'
+          package-manager-cache: false
+      - name: Match tag and package version
+        working-directory: packages/typescript
+        run: |
+          node -e 'if (process.env.GITHUB_REF_NAME !== "node-v" + require("./package.json").version) process.exit(1)'
+      - name: Install
+        working-directory: packages/typescript
+        run: npm ci
+      - name: Typecheck and test
+        working-directory: packages/typescript
+        run: |
+          npm run typecheck
+          npm test
+      - name: Make package
+        working-directory: packages/typescript
+        run: npm run build
+      - name: Examine published dependencies
+        working-directory: packages/typescript
+        run: npm audit --omit=dev
+      - name: Publish to npm
+        working-directory: packages/typescript
+        run: npm publish --access public

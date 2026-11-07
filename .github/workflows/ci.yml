@@ -1,0 +1,110 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.11', '3.12', '3.13', '3.14']
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install
+        working-directory: packages/python
+        run: python -m pip install -e '.[dev]'
+      - name: Lint
+        working-directory: packages/python
+        run: ruff check .
+      - name: Test
+        working-directory: packages/python
+        run: pytest -q
+      - name: Make distributions
+        working-directory: packages/python
+        run: python -m build
+      - name: Install wheel in a new environment
+        working-directory: packages/python
+        run: |
+          python -m venv /tmp/tool-boundary-wheel
+          /tmp/tool-boundary-wheel/bin/python -m pip install dist/*.whl
+          /tmp/tool-boundary-wheel/bin/python -c 'import tool_boundary'
+
+  node:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: ['22', '24']
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install
+        working-directory: packages/typescript
+        run: npm ci
+      - name: Typecheck
+        working-directory: packages/typescript
+        run: npm run typecheck
+      - name: Test
+        working-directory: packages/typescript
+        run: npm test
+      - name: Examine published dependencies
+        working-directory: packages/typescript
+        run: npm audit --omit=dev
+      - name: Make package
+        working-directory: packages/typescript
+        run: npm run build
+      - name: Examine package files
+        working-directory: packages/typescript
+        run: npm pack --dry-run
+      - name: Install tarball in a new project
+        working-directory: packages/typescript
+        run: |
+          PACKAGE_FILE=$(npm pack --pack-destination "$RUNNER_TEMP")
+          mkdir -p "$RUNNER_TEMP/tool-boundary-smoke"
+          npm install --prefix "$RUNNER_TEMP/tool-boundary-smoke" "$RUNNER_TEMP/$PACKAGE_FILE"
+          cd "$RUNNER_TEMP/tool-boundary-smoke"
+          node --input-type=module -e 'import { compareValues } from "@eduard-s/tool-boundary"; if (compareValues({x:1},{x:2})[0].path !== "/x") process.exit(1)'
+
+  node-fixed-control:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+      - name: Install historical fixture dependencies
+        working-directory: packages/typescript
+        run: npm ci
+      - name: Install published fixed versions
+        working-directory: packages/typescript
+        run: npm install --no-save --package-lock=false @ai-sdk/workflow@2.0.73 ai@7.0.141
+      - name: Run fixed WorkflowAgent controls
+        working-directory: packages/typescript
+        run: npm exec vitest run tests/workflow.test.ts
+
+  node-historical:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+      - name: Install development dependencies
+        working-directory: packages/typescript
+        run: npm ci
+      - name: Install affected SDK versions
+        working-directory: packages/typescript
+        run: npm install --no-save --package-lock=false @ai-sdk/workflow@2.0.68 @modelcontextprotocol/sdk@1.29.0 ai@7.0.136 workflow@5.2.0 zod@4.4.3
+      - name: Run historical regression cases
+        working-directory: packages/typescript
+        run: npm test

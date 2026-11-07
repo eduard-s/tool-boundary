@@ -1,0 +1,40 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "tool-boundary"
+version = "0.1.0"
+description = "Find changes to AI tool arguments, results, and errors at framework boundaries"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+authors = [{name = "Eduard S"}]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Typing :: Typed",
+]
+dependencies = ["pydantic>=2.11,<3"]
+
+[project.optional-dependencies]
+mcp-v1 = ["mcp>=1.26,<2"]
+dev = ["pytest>=8", "pytest-asyncio>=1", "ruff>=0.14", "build>=1", "mcp==1.26.0"]
+
+[project.urls]
+Homepage = "https://github.com/eduard-s/tool-boundary"
+Repository = "https://github.com/eduard-s/tool-boundary"
+Issues = "https://github.com/eduard-s/tool-boundary/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/tool_boundary"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+
+[tool.ruff]
+line-length = 100

@@ -1,0 +1,72 @@
+{
+  "name": "@eduard-s/tool-boundary",
+  "version": "0.1.0",
+  "description": "Find changes to AI tool arguments, results, and errors at framework boundaries",
+  "type": "module",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eduard-s/tool-boundary.git",
+    "directory": "packages/typescript"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./mcp-v1": {
+      "types": "./dist/mcp-v1.d.ts",
+      "import": "./dist/mcp-v1.js"
+    },
+    "./workflow": {
+      "types": "./dist/workflow.d.ts",
+      "import": "./dist/workflow.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "peerDependencies": {
+    "@ai-sdk/workflow": "^2.0.68",
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "ai": "^7.0.136",
+    "zod": "^4.1.8"
+  },
+  "peerDependenciesMeta": {
+    "@modelcontextprotocol/sdk": {
+      "optional": true
+    },
+    "@ai-sdk/workflow": {
+      "optional": true
+    },
+    "ai": {
+      "optional": true
+    },
+    "zod": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@ai-sdk/workflow": "^2.0.96",
+    "@modelcontextprotocol/sdk": "^1.32.2",
+    "@types/node": "^24.0.0",
+    "ai": "^7.0.164",
+    "ajv": "^8.17.1",
+    "typescript": "^5.9.3",
+    "vitest": "^5.1.0",
+    "workflow": "^5.4.0",
+    "zod": "^4.6.7"
+  }
+}

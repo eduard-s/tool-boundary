@@ -1,0 +1,58 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/eduard-s/tool-boundary/blob/main/spec/report-v1.schema.json",
+  "title": "ToolBoundary report v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "caseId", "runtime", "adapter", "dependencyVersions", "outcome", "observations"],
+  "properties": {
+    "schemaVersion": {"const": 1},
+    "caseId": {"type": "string", "minLength": 1},
+    "runtime": {"enum": ["python", "node"]},
+    "adapter": {"type": "string", "minLength": 1},
+    "input": {"type": "object"},
+    "dependencyVersions": {"type": "object", "additionalProperties": {"type": "string"}},
+    "outcome": {"enum": ["pass", "fail", "unsupported", "harness_error"]},
+    "observations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["boundary", "expected", "observed", "differences", "allowedDifferences"],
+        "properties": {
+          "boundary": {"enum": ["input", "result", "error"]},
+          "expected": {},
+          "observed": {},
+          "differences": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["path", "expected", "observed"],
+              "properties": {
+                "path": {"type": "string"},
+                "expected": {},
+                "observed": {}
+              }
+            }
+          },
+          "allowedDifferences": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["path", "expected", "observed", "reason"],
+              "properties": {
+                "path": {"type": "string"},
+                "expected": {},
+                "observed": {},
+                "reason": {"type": "string", "minLength": 1}
+              }
+            }
+          }
+        }
+      }
+    },
+    "message": {"type": "string"}
+  }
+}
