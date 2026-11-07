@@ -22,8 +22,8 @@ ToolBoundary compares values with explicit expectations. JSON Schema defines val
 
 | Runtime | Package directory | Registry |
 | --- | --- | --- |
-| Python | [`packages/python`](packages/python) | PyPI |
-| Node.js | [`packages/typescript`](packages/typescript) | npm |
+| Python | [`packages/python`](packages/python) | [`tool-boundary-py`](https://pypi.org/project/tool-boundary-py/) |
+| Node.js | [`packages/typescript`](packages/typescript) | [`@esmirnov.ai/tool-boundary`](https://www.npmjs.com/package/@esmirnov.ai/tool-boundary) |
 
 The Python package is `tool-boundary-py` on PyPI. The Node.js package is `@esmirnov.ai/tool-boundary` on npm.
 
