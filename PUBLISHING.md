@@ -68,7 +68,7 @@ The [`publish-npm.yml`](.github/workflows/publish-npm.yml) workflow runs tests, 
 
 ## First PyPI release
 
-Create a [pending PyPI trusted publisher](https://docs.pypi.org/trusted-publishers/creating-a-project-through-oidc/). Set the project name to `tool-boundary`. Set the GitHub owner to `eduard-s`. Set the repository to `tool-boundary`. Set the workflow filename to `publish-python.yml`. Set the environment to `pypi`.
+Create a [pending PyPI trusted publisher](https://docs.pypi.org/trusted-publishers/creating-a-project-through-oidc/). Set the project name to `tool-boundary-py`. Set the GitHub owner to `eduard-s`. Set the repository to `tool-boundary`. Set the workflow filename to `publish-python.yml`. Set the environment to `pypi`.
 
 PyPI does not reserve the name when you make the pending publisher. After the workflow and environment exist, push the matching tag:
 
@@ -87,7 +87,7 @@ Examine the registry pages. From the repository root, install the Python package
 
 ```sh
 python3 -m venv .venv-published
-.venv-published/bin/python -m pip install 'tool-boundary[mcp-v1]'
+.venv-published/bin/python -m pip install 'tool-boundary-py[mcp-v1]'
 .venv-published/bin/python -c 'import tool_boundary'
 ```
 
