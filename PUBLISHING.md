@@ -40,15 +40,18 @@ The Python commands make `.venv` in the package directory. The root `.gitignore`
 npm needs a package record before you can set a trusted publisher. Sign in to the account that owns `@eduard-s`. From `packages/typescript`, run these commands:
 
 ```sh
+npm login
 npm whoami
 npm run build
 npm pack --dry-run
 npm publish --access public
 ```
 
-The manual `npm publish` command uploads the first public release. The `name` and `version` values must match `package.json`. You cannot replace a published npm version.
+The manual `npm publish` command uploads the first public release. The `name` and `version` values must match `package.json`. You cannot replace a published npm version. Do not push `node-v0.1.0` after this manual release. That tag starts a second publication of the same version.
 
-After the first release, open the package's **Settings → Trusted publishing** page on npm. Add GitHub Actions with owner `eduard-s`, repository `tool-boundary`, and workflow filename `publish-npm.yml`. Allow direct `npm publish`. The workflow uses OIDC credentials with a short lifetime. Read the [npm guide](https://docs.npmjs.com/trusted-publishers/) for the exact settings.
+Before the next npm release, open the package's **Settings → Trusted publishing** page on npm. Add GitHub Actions with owner `eduard-s`, repository `tool-boundary`, and workflow filename `publish-npm.yml`. Allow direct `npm publish`. Publish through the workflow within two days of this configuration. If this period ends, delete the expired connection and make a new one. Read the [npm guide](https://docs.npmjs.com/trusted-publishers/) for the exact settings.
+
+The npm workflow has no GitHub environment. Leave the npm environment field empty.
 
 For later npm releases, change the package version. Push a tag that matches the version:
 
