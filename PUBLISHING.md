@@ -1,6 +1,6 @@
 # Publish ToolBoundary
 
-The Python and npm packages have separate versions and release tags. In this guide, commands use version `0.1.0`. Change the version before each later release.
+The Python and npm packages have separate versions and release tags. The npm commands use version `0.1.0`. The Python commands use version `0.1.1`. Change each version for later releases.
 
 ## Before the first release
 
@@ -73,8 +73,8 @@ Create a [pending PyPI trusted publisher](https://docs.pypi.org/trusted-publishe
 PyPI does not reserve the name when you make the pending publisher. After the workflow and environment exist, push the matching tag:
 
 ```sh
-git tag python-v0.1.0
-git push origin python-v0.1.0
+git tag python-v0.1.1
+git push origin python-v0.1.1
 ```
 
 The [`publish-python.yml`](.github/workflows/publish-python.yml) workflow makes a wheel and source archive. It uploads both through the PyPI trusted publisher. Read the [PyPI guide](https://docs.pypi.org/trusted-publishers/using-a-publisher/) for the OIDC process.
