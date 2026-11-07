@@ -5,7 +5,7 @@ The Python and npm packages have separate versions and release tags. In this gui
 ## Before the first release
 
 1. Push this repository to `eduard-s/tool-boundary` on GitHub.
-2. Make sure that your npm account controls the `@eduard-s` scope.
+2. Make sure that your npm account controls the `@esmirnov.ai` scope.
 3. If your npm account uses another scope, change `name` in `packages/typescript/package.json`.
 4. Examine the package names on [npm](https://www.npmjs.com/) and [PyPI](https://pypi.org/). A registry search does not reserve a name.
 5. Create a GitHub environment named `pypi`.
@@ -41,7 +41,7 @@ The Python commands make `.venv` in the package directory. The root `.gitignore`
 
 ## First npm release
 
-npm needs a package record before you can set a trusted publisher. Sign in to the account that owns `@eduard-s`. From `packages/typescript`, run these commands:
+npm needs a package record before you can set a trusted publisher. Sign in to the account that owns `@esmirnov.ai`. From `packages/typescript`, run these commands:
 
 ```sh
 npm login
@@ -91,6 +91,6 @@ python3 -m venv .venv-published
 .venv-published/bin/python -c 'import tool_boundary'
 ```
 
-In a new Node.js project, run `npm install @eduard-s/tool-boundary`.
+In a new Node.js project, run `npm install @esmirnov.ai/tool-boundary`.
 
 The npm package needs the SDK for the adapter that you import. Read [`packages/typescript/README.md`](packages/typescript/README.md).

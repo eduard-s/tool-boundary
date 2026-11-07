@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { probeWorkflowTool } from '@eduard-s/tool-boundary/workflow';
+import { probeWorkflowTool } from '@esmirnov.ai/tool-boundary/workflow';
 
 const report = await probeWorkflowTool({
   caseId: 'node.workflow-default-transform',

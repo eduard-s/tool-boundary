@@ -4,9 +4,7 @@ ToolBoundary examines tool calls in MCP Python SDK v1. It compares the direct pa
 
 ## Install
 
-After publication, install the MCP adapter with `pip install 'tool-boundary[mcp-v1]'`.
-
-The public PyPI index returned no package with this name on November 7, 2026. Another publisher can take the name before release.
+Install the MCP adapter with `pip install 'tool-boundary[mcp-v1]'`.
 
 ## Example
 

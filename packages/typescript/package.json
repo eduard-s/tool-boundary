@@ -1,5 +1,5 @@
 {
-  "name": "@eduard-s/tool-boundary",
+  "name": "@esmirnov.ai/tool-boundary",
   "version": "0.1.0",
   "description": "Find changes to AI tool arguments, results, and errors at framework boundaries",
   "type": "module",

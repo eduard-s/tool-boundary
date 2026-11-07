@@ -73,7 +73,7 @@ jobs:
           PACKAGE_FILE=$(npm pack --pack-destination .venv-node-smoke)
           npm install --prefix .venv-node-smoke/project ".venv-node-smoke/$PACKAGE_FILE"
           cd .venv-node-smoke/project
-          node --input-type=module -e 'import { compareValues } from "@eduard-s/tool-boundary"; if (compareValues({x:1},{x:2})[0].path !== "/x") process.exit(1)'
+          node --input-type=module -e 'import { compareValues } from "@esmirnov.ai/tool-boundary"; if (compareValues({x:1},{x:2})[0].path !== "/x") process.exit(1)'
 
   node-fixed-control:
     runs-on: ubuntu-latest

@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { probeMcpTool } from '@eduard-s/tool-boundary/mcp-v1';
+import { probeMcpTool } from '@esmirnov.ai/tool-boundary/mcp-v1';
 
 const input = z.object({ name: z.string() });
 const output = z.object({ name: z.string(), counted: z.number().default(0) });

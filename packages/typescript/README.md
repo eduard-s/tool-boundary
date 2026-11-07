@@ -4,7 +4,7 @@ ToolBoundary examines tool input, results, and errors. The first adapters suppor
 
 ## Install
 
-After publication, install `@eduard-s/tool-boundary` from npm. Install the SDK for the adapter that you use. The npm registry returned no package with this name on November 7, 2026. Your npm account must control the `@eduard-s` scope.
+Install `@esmirnov.ai/tool-boundary` from npm. Install the SDK for the adapter that you use.
 
 ## Examples
 
@@ -17,7 +17,7 @@ node examples/workflow-input.mjs
 
 The [MCP example](examples/mcp-output.mjs) compares parsed structured output with the client response. The [WorkflowAgent example](examples/workflow-input.mjs) compares a Zod parser result with the tool executor arguments. Both examples use stub handlers.
 
-Import `probeMcpTool` from `@eduard-s/tool-boundary/mcp-v1`. Import `probeWorkflowTool` from `@eduard-s/tool-boundary/workflow`.
+Import `probeMcpTool` from `@esmirnov.ai/tool-boundary/mcp-v1`. Import `probeWorkflowTool` from `@esmirnov.ai/tool-boundary/workflow`.
 
 For WorkflowAgent, pass `makeTool` if your application has its own tool factory. The probe gives that factory a stub executor.
 

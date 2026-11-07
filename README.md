@@ -25,7 +25,7 @@ ToolBoundary compares values with explicit expectations. JSON Schema defines val
 | Python | [`packages/python`](packages/python) | PyPI |
 | Node.js | [`packages/typescript`](packages/typescript) | npm |
 
-On November 7, 2026, public npm and PyPI searches returned no package with these names. Before publication, examine name availability and ownership in each registry.
+The Python package is `tool-boundary` on PyPI. The Node.js package is `@esmirnov.ai/tool-boundary` on npm.
 
 Start with the [Python example](packages/python/examples/error_case.py), the [MCP Node.js example](packages/typescript/examples/mcp-output.mjs), or the [WorkflowAgent example](packages/typescript/examples/workflow-input.mjs).
 
